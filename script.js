@@ -20,8 +20,8 @@ function submitHandler() {
         },
         body: formData
     })
-        .then(function (reponse) {
-            return reponse.blob()
+        .then(function (response) {
+            return response.blob()
         })
         .then(function (blob) {
             console.log(blob);
@@ -29,10 +29,15 @@ function submitHandler() {
             imageURL = url;
             const img = document.createElement('img');
             img.src = url;
-            document.body.appendChild(img);
+            // Memilih tempat untuk menyisipkan elemen <img>
+            img.style.maxWidth = '100%';
+            const downloadButton = document.querySelector('.btn-warning');
+            const parentDiv = downloadButton.parentNode;
+            parentDiv.insertBefore(img, downloadButton); // Menyisipkan elemen <img> sebelum tombol "Download"
         })
         .catch();
 }
+
 
 function downloadFile() {
     var anchorElement = document.createElement('a');
