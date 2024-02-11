@@ -1,10 +1,9 @@
-
 body,
 html {
     padding: 0;
     margin: 0;
     height: 100%;
-  
+
 }
 
 
@@ -17,10 +16,10 @@ footer {
 }
 
 img {
-  
-  width: auto;
-  height: auto;
-   
+
+    width: auto;
+    height: auto;
+
 }
 
 .container {
@@ -90,22 +89,23 @@ label {
 }
 
 
-footer{
+footer {
     padding: 1rem;
     background-color: #4278ff;
     color: white;
 }
-footer a{
+
+footer a {
     font-weight: bold;
     text-decoration: none;
     color: var(--bg);
 }
 
-footer a:hover{
+footer a:hover {
     color: rgb(2, 5, 2);
 }
 
-footer li{
+footer li {
     list-style: none;
     display: inline;
     margin: 0.5rem;
