@@ -13,6 +13,9 @@ function submitHandler() {
 
     const apiKey = 'dgyjpaELPofnEvPCji1pzEuc';
 
+    const removeButton = document.querySelector('.btn-primary'); // Mengambil referensi ke tombol "Remove"
+    removeButton.disabled = true; // Menonaktifkan tombol "Remove"
+
     fetch('https://api.remove.bg/v1.0/removebg', {
         method: 'POST',
         headers: {
@@ -29,14 +32,28 @@ function submitHandler() {
             imageURL = url;
             const img = document.createElement('img');
             img.src = url;
+            img.className = 'removed-image'; // Menambahkan class ke gambar
             // Memilih tempat untuk menyisipkan elemen <img>
             img.style.maxWidth = '100%';
             const downloadButton = document.querySelector('.btn-warning');
             const parentDiv = downloadButton.parentNode;
             parentDiv.insertBefore(img, downloadButton); // Menyisipkan elemen <img> sebelum tombol "Download"
+
+            // Menambahkan event listener ke tombol "Download"
+            downloadButton.addEventListener('click', function() {
+                // Menghapus gambar yang ditambahkan sebelumnya
+                const removedImage = document.querySelector('.removed-image');
+                if (removedImage) {
+                    removedImage.remove();
+                }
+            });
         })
-        .catch();
+        .catch()
+        .finally(() => {
+            removeButton.disabled = false; // Mengaktifkan kembali tombol "Remove" setelah selesai
+        });
 }
+
 
 
 function downloadFile() {
