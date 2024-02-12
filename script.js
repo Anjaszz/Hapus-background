@@ -11,10 +11,12 @@ function submitHandler() {
     formData.append('image_file', image);
     formData.append('size', 'auto');
 
-    const apiKey = 'dgyjpaELPofnEvPCji1pzEuc';
+    const apiKey = 'KpkWqGUfc98x9ZDgc26Sto5A';
 
     const removeButton = document.querySelector('.btn-primary'); // Mengambil referensi ke tombol "Remove"
-    removeButton.disabled = true; // Menonaktifkan tombol "Remove"
+    removeButton.disabled = true; // Menonaktifkan tombol "Remove" untuk sementara
+
+    const downloadButton = document.querySelector('.btn-warning');
 
     fetch('https://api.remove.bg/v1.0/removebg', {
         method: 'POST',
@@ -35,31 +37,35 @@ function submitHandler() {
             img.className = 'removed-image'; // Menambahkan class ke gambar
             // Memilih tempat untuk menyisipkan elemen <img>
             img.style.maxWidth = '100%';
-            const downloadButton = document.querySelector('.btn-warning');
-            const parentDiv = downloadButton.parentNode;
-            parentDiv.insertBefore(img, downloadButton); // Menyisipkan elemen <img> sebelum tombol "Download"
-
+            
             // Menambahkan event listener ke tombol "Download"
             downloadButton.addEventListener('click', function() {
                 // Menghapus gambar yang ditambahkan sebelumnya
                 const removedImage = document.querySelector('.removed-image');
                 if (removedImage) {
                     removedImage.remove();
+                    removeButton.disabled = false; // Mengaktifkan kembali tombol "Remove" setelah gambar dihapus
                 }
             });
+
+            const parentDiv = downloadButton.parentNode;
+            parentDiv.insertBefore(img, downloadButton); // Menyisipkan elemen <img> sebelum tombol "Download"
+            
+            removeButton.disabled = true; // Mengaktifkan tombol "Remove" setelah gambar ditampilkan
         })
-        .catch()
-        .finally(() => {
-            removeButton.disabled = false; // Mengaktifkan kembali tombol "Remove" setelah selesai
+        .catch(() => {
+            removeButton.disabled = true; // Mengaktifkan kembali tombol "Remove" jika terjadi error
         });
 }
+
+
 
 
 
 function downloadFile() {
     var anchorElement = document.createElement('a');
     anchorElement.href = imageURL;
-    anchorElement.download = 'naciasv.png';
+    anchorElement.download = 'remove-bg.png';
     document.body.appendChild(anchorElement);
 
     anchorElement.click();
